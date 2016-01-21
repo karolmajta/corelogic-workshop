@@ -1,31 +1,22 @@
-This project contains a special file called `.nvmrc`.
-The only thing it contains is a version number of node to be used
-for this project.
+Now you will install your production dependencies (libraries
+that will be used by your application, not by your build tools).
 
-If you type:
+We will of course use angular and underscore.
 
-     $ nvm use
+We want to track our production dependencies in a special `bower.json`
+file. This file is not there yet.
 
-In project dir, proper version of node and npm will get activated.
+Create it with:
 
-It also contains, a package.json file, which contains project configuration,
-dependencies etc. You can generate it for new projects using
+    $ ./node_modules/.bin/bower init
 
-     $ npm init
+Now you can use `bower install` command to install dependencies.
+Remember the `--save` flag that will persist installed dependency
+in `bower.json` file.
 
-But this one has it already prepared.
+After you're done try removing `bower_components` file and running
 
-For this project we will be using grunt and bower. You will need following
-packages installed:
+    $ ./node_modules/.bin/bower install
 
-- `grunt`,
-- `grunt-cli`,
-- `bower`
-
-Try installing them with `npm install`. Remember the `--save` option.
-It will persist the changes in `package.json`.
-
-After you have your dependencies installed try removing the `node_modules`
-directory and running:
-
-    $ npm install
+All dependencies should be fetched back, based on contents of your
+`bower.json` file.
