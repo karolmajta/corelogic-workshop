@@ -1,33 +1,31 @@
-# Install node and npm
+This project contains a special file called `.nvmrc`.
+The only thing it contains is a version number of node to be used
+for this project.
 
-If you're on linux or mac use `nvm`. Install instructions
-are available at:
+If you type:
 
-https://github.com/creationix/nvm
+     $ nvm use
 
-(use the install script)
+In project dir, proper version of node and npm will get activated.
 
-Then do:
+It also contains, a package.json file, which contains project configuration,
+dependencies etc. You can generate it for new projects using
 
-    $ nvm ls-remote
+     $ npm init
 
-to find out what is the newest stable version
+But this one has it already prepared.
 
-    $ nvm install <version>
+For this project we will be using grunt and bower. You will need following
+packages installed:
 
-to install selected version
+- `grunt`,
+- `grunt-cli`,
+- `bower`
 
-    $ nvm use <version>
+Try installing them with `npm install`. Remember the `--save` option.
+It will persist the changes in `package.json`.
 
-to setup your path and make `node` and `npm` binaries available on PATH.
+After you have your dependencies installed try removing the `node_modules`
+directory and running:
 
-If you're on windows use the installer from nodejs.org:
-
-https://nodejs.org/en/download/stable/
-
-Try:
-
-    $ npm --version
-    $ node --version
-
-To find out if it works.
+    $ npm install

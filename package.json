@@ -1,0 +1,19 @@
+{
+  "name": "corelogic-workshop",
+  "version": "1.0.0",
+  "description": "This project contains a special file called `.nvmrc`. The only thing it contains is a version number of node to be used for this project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karolmajta/corelogic-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karolmajta/corelogic-workshop/issues"
+  },
+  "homepage": "https://github.com/karolmajta/corelogic-workshop#readme"
+}
