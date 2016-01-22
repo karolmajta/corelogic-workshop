@@ -1,9 +1,15 @@
 var grunt = require('grunt');
 
-grunt.initConfig({ 
-
+grunt.initConfig({
+    'http-server': {
+         root: '.',
+         port: 8282,
+         host: "127.0.0.0",
+         showDir : true,
+         autoIndex: true,
+         ext: "html",
+         runInBackground: false
+    }
 });
 
-grunt.registerTask('http-server', function () {
-  console.log("I should run the development server!");
-});
+grunt.loadNpmTasks('grunt-http-server');

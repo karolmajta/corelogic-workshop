@@ -1,37 +1,31 @@
-You see that we have
+What if i asked you to add another js file to the mix? Let's say
+`rest-services.js`. You can make it contain an API_URL constant, like this:
 
-    <div ng-controller="pageController">
-      The toast is:
-      <h1>{{toast}}</h1>
-    </div>
+    angular.module('corelogic.rest-services', [])
+        .constant('API_URL', 'http://corelogic.pl');
 
-In our `index.html`. We would rather use angular feature called templates.
-I've prepared such template for you - it's in `src/tempaltes/page.html`
-directory, and contains the markup from above.
+Modify `controllers.js`, so that we can use the `API_URL` in our template:
 
-In your `index.html` replace this div with:
+    angular.module('corelogic.controllers', ['corelogic.services', 'corelogic.rest-services'])
+      .controller('pageController',
+        ['$scope', 'GREETING', 'API_URL', function ($scope, GREETING, API_URL) {
+          $scope.toast = GREETING;
+          $scope.apiUrl = API_URL;
+        }]
+      );
 
-<ng-include src="'templates/page.html'"><ng-include>
+And finally display it in the `templates/page.html` template like this:
 
-What should happen? What happens?
+    There is no real API at <a ng-href={{apiUrl}}>{{apiUrl}}</a>
 
-Chrome will not allow you to do an AJAX request for a template using
-`file://` protocol. This is because of browser's security policy.
+We expect this to work, but we get an error instead!
+Aha! We forgot to add the new file to `index.html` in a `<script>` tag.
+Go ahead, add it and se how it fixes things. But this is inconvenient. We don't
+want to modify `index.html` every time we add a new source file.
 
-To mitigate this, we need a local development webserver.
+We can use `grunt-contrib-concat` for that. Add a `concat` task to your Grundfile
+basing on the documentation at:
 
-The project root contains a minimal `Gruntfile.js`. You can think of
-it as a Makefile for grunt. It contains a stub `http-server` task. Try invoking
-it:
+https://github.com/gruntjs/grunt-contrib-concat
 
-    $ ./node_modules/.bin/grunt http-server
-    I should run the web server!!!
-
-We will use the `grunt-http-server` package to run the real development
-server.
-
-https://www.npmjs.com/package/grunt-http-server
-
-Basing on the documentation you should be able to install it (remember to
-use the `--save` flag, this package is your development dependency!),
-and modify the Gruntfile, so that the `http-server` task runs real server.
+Configure the task, so that it outputs the file to `build/js/app.js` file.
