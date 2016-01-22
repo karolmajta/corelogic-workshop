@@ -35,6 +35,14 @@ grunt.initConfig({
              dest: 'build/'
         }
     },
+    render: {
+        config: {
+            options: {url: grunt.option('url'), companyName: grunt.option('company-name')},
+            files: {
+                'build/js/config.js': ['src/config.ejs']
+            }
+        }
+    },
     clean: ["build"]
 });
 
@@ -42,5 +50,6 @@ grunt.loadNpmTasks('grunt-http-server');
 grunt.loadNpmTasks('grunt-contrib-concat');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-clean');
+grunt.loadNpmTasks('grunt-ejs-render');
 
-grunt.registerTask('default', ['clean', 'concat', 'copy']);
+grunt.registerTask('default', ['clean', 'concat', 'copy', 'render']);

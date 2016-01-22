@@ -1,7 +1,7 @@
-angular.module('corelogic.controllers', ['corelogic.services', 'corelogic.rest-services'])
+angular.module('corelogic.controllers', ['corelogic.config'])
     .controller('pageController',
-      ['$scope', 'GREETING', 'API_URL', function ($scope, GREETING, API_URL) {
-        $scope.toast = GREETING;
-        $scope.apiUrl = API_URL;
+      ['$scope', 'COMPANY_NAME', 'URL', function ($scope, COMPANY_NAME, URL) {
+        $scope.toast = "Hello " + COMPANY_NAME;
+        $scope.apiUrl = URL;
       }]
     );
