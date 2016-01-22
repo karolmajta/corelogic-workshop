@@ -46,6 +46,12 @@ grunt.initConfig({
     jshint: {
         all: ['Gruntfile.js', 'src/**/*.js']
     },
+    watch: {
+        scripts: {
+            files: ['src/**/*.js'],
+            tasks: ['default'],
+       }
+    },
     clean: ["build"]
 });
 
@@ -55,5 +61,8 @@ grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-clean');
 grunt.loadNpmTasks('grunt-ejs-render');
 grunt.loadNpmTasks('grunt-contrib-jshint');
+grunt.loadNpmTasks('grunt-contrib-watch');
 
 grunt.registerTask('default', ['clean', 'jshint', 'concat', 'copy', 'render']);
+grunt.registerTask('develop', ['default', 'watch']);
+
