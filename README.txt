@@ -1,25 +1,37 @@
-Now you have a `build` directory that contains your built application in a
-single file `app.js`. However, you also need to move your `src/index.html` in your
-build, and also `bower_components` directory.
+Now we have pretty much automated our build, but we still cannot
+do different builds for production, staging, development etc.
 
-Make sure that you change `<script src="...">` paths in your `index.html` accordingly.
+We want to be able to configure two things:
 
-Create a `copy` task for that. You can use `grunt-contrib-copy` for that:
+The API address displayed in link. The company name.
 
-https://github.com/gruntjs/grunt-contrib-copy
+We want to be able to pass these values during build time like this:
 
-Once you have a copy task it is good to have a `clean` task that will just remove
-the `build` directory. Add `clean` task.
+./node_modules/.bin/grunt --url=<http://corelogic.pl> --company-name=<Corelogic>
 
-Once you have `concat`, `clean` and `copy` in place combine them in one
-`default` task like this:
+We can use `grunt.option` API for this:
 
-     grunt.registerTask('default', ['clean', 'concat', 'copy']);
+http://gruntjs.com/api/grunt.option
 
-You can now run it without specifying task name (it's the same as *all* make target
-in Makefile).
+Web apps are not exactly like binary executables. Once they're built
+you cannot configure them from command line, etc. This is why we have
+to "render" the configuration into a js file, that will become part of
+the final build.
 
-     ./node_modules/.bin/grunt
+We can use `grunt-ejs-render` for this. Try configuring this task yourself
+so it renders a `build/js/config.js` file that looks like this:
 
-The last thing to do is to change 'root' setting of http-server, so it serves from the
-build directory.
+angular.module('corelogic.config', [])
+  .constant('URL', 'http://corelogic.pl')
+  .constant('COMPANY_NAME', 'Corelogic');
+
+You can use an `ejs` template located in `src/config.ejs` that looks like this:
+
+angular.module('corelogic.config', [])
+  .constant('URL', '<%= url %>')
+  .constant('COMPANY_NAME', '<%= companyName %>');
+
+Make sure to use these constants in other modules. Also, because we render straight
+to `build/js/config.js` make sure to add a script tag in index.html.
+
+Make the render task part of your 'default' task.

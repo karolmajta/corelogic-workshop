@@ -19,7 +19,28 @@ grunt.initConfig({
              dest: 'build/js/app.js',
         }
     },
+    copy: {
+        index: {
+             src: 'src/index.html',
+             dest: 'build/index.html',
+        },
+        templates: {
+             src: 'templates/**/*',
+             dest: 'build/',
+             cwd: 'src',
+             expand: true
+        },
+        deps: {
+             src: 'bower_components/**/*',
+             dest: 'build/'
+        }
+    },
+    clean: ["build"]
 });
 
 grunt.loadNpmTasks('grunt-http-server');
 grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-copy');
+grunt.loadNpmTasks('grunt-contrib-clean');
+
+grunt.registerTask('default', ['clean', 'concat', 'copy']);
