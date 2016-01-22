@@ -43,6 +43,9 @@ grunt.initConfig({
             }
         }
     },
+    jshint: {
+        all: ['Gruntfile.js', 'src/**/*.js']
+    },
     clean: ["build"]
 });
 
@@ -51,5 +54,6 @@ grunt.loadNpmTasks('grunt-contrib-concat');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-clean');
 grunt.loadNpmTasks('grunt-ejs-render');
+grunt.loadNpmTasks('grunt-contrib-jshint');
 
-grunt.registerTask('default', ['clean', 'concat', 'copy', 'render']);
+grunt.registerTask('default', ['clean', 'jshint', 'concat', 'copy', 'render']);

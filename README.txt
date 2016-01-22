@@ -1,8 +1,8 @@
-Take a look at `grunt-contrib-jshint`:
+Take a look at `grunt-contrib-watch`:
 
-https://github.com/gruntjs/grunt-contrib-jshint
+https://github.com/gruntjs/grunt-contrib-watch
 
-Make `jshint` part of your default task (lint all your files under
-src/js).
+Configure the watch task to watch all your files under `src` directory and
+run `default` task on change.
 
-If there are any lint errors fix them.
+Create a 'develop' task, that will trigger `default` and then `watch`.
