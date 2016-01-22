@@ -1,0 +1,19 @@
+{
+  "name": "corelogic-workshop",
+  "description": "This project contains a special file called `.nvmrc`. The only thing it contains is a version number of node to be used for this project.",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "https://github.com/karolmajta/corelogic-workshop",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.9",
+    "underscore": "~1.8.3"
+  }
+}
