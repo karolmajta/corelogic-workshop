@@ -1,31 +1,25 @@
-What if i asked you to add another js file to the mix? Let's say
-`rest-services.js`. You can make it contain an API_URL constant, like this:
+Now you have a `build` directory that contains your built application in a
+single file `app.js`. However, you also need to move your `src/index.html` in your
+build, and also `bower_components` directory.
 
-    angular.module('corelogic.rest-services', [])
-        .constant('API_URL', 'http://corelogic.pl');
+Make sure that you change `<script src="...">` paths in your `index.html` accordingly.
 
-Modify `controllers.js`, so that we can use the `API_URL` in our template:
+Create a `copy` task for that. You can use `grunt-contrib-copy` for that:
 
-    angular.module('corelogic.controllers', ['corelogic.services', 'corelogic.rest-services'])
-      .controller('pageController',
-        ['$scope', 'GREETING', 'API_URL', function ($scope, GREETING, API_URL) {
-          $scope.toast = GREETING;
-          $scope.apiUrl = API_URL;
-        }]
-      );
+https://github.com/gruntjs/grunt-contrib-copy
 
-And finally display it in the `templates/page.html` template like this:
+Once you have a copy task it is good to have a `clean` task that will just remove
+the `build` directory. Add `clean` task.
 
-    There is no real API at <a ng-href={{apiUrl}}>{{apiUrl}}</a>
+Once you have `concat`, `clean` and `copy` in place combine them in one
+`default` task like this:
 
-We expect this to work, but we get an error instead!
-Aha! We forgot to add the new file to `index.html` in a `<script>` tag.
-Go ahead, add it and se how it fixes things. But this is inconvenient. We don't
-want to modify `index.html` every time we add a new source file.
+     grunt.registerTask('default', ['clean', 'concat', 'copy']);
 
-We can use `grunt-contrib-concat` for that. Add a `concat` task to your Grundfile
-basing on the documentation at:
+You can now run it without specifying task name (it's the same as *all* make target
+in Makefile).
 
-https://github.com/gruntjs/grunt-contrib-concat
+     ./node_modules/.bin/grunt
 
-Configure the task, so that it outputs the file to `build/js/app.js` file.
+The last thing to do is to change 'root' setting of http-server, so it serves from the
+build directory.
