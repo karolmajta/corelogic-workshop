@@ -2,13 +2,24 @@ var grunt = require('grunt');
 
 grunt.initConfig({
     'http-server': {
-         root: '.',
+        dev: {
+         root: 'build',
          port: 8282,
-         host: "127.0.0.0",
+         host: "localhost",
          showDir : true,
          autoIndex: true,
          ext: "html",
-         runInBackground: false
+         runInBackground: true
+        },
+        prod: {
+          root: 'build',
+          port: 8282,
+          host: "localhost",
+          showDir : true,
+          autoIndex: true,
+          ext: "html",
+          runInBackground: false
+        }
     },
     concat: {
         options: {
@@ -30,6 +41,12 @@ grunt.initConfig({
              cwd: 'src',
              expand: true
         },
+        css: {
+            src: 'css/**/*',
+            dest: 'build/',
+            cwd: 'src',
+            expand: true
+        },
         deps: {
              src: 'bower_components/**/*',
              dest: 'build/'
@@ -48,8 +65,11 @@ grunt.initConfig({
     },
     watch: {
         scripts: {
-            files: ['src/**/*.js'],
-            tasks: ['default'],
+            files: ['src/**/*.js', 'src/**/*.css', 'src/**/*.html'],
+            tasks: ['default']
+       },
+       options: {
+           livereload: true
        }
     },
     clean: ["build"]
@@ -64,5 +84,5 @@ grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-watch');
 
 grunt.registerTask('default', ['clean', 'jshint', 'concat', 'copy', 'render']);
-grunt.registerTask('develop', ['default', 'watch']);
+grunt.registerTask('develop', ['default', 'http-server:dev', 'watch']);
 
