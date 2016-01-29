@@ -1,14 +1,16 @@
-angular.module('corelogic.controllers', [])
-    .controller('todosController', ['$scope', function ($scope) {
-        $scope.todos = [
-            {text: "Learn angular", done: false},
-            {text: "Learn JS", done: true},
-            {text: "Become a master of LISP", done: false}
-        ];
+angular.module('corelogic.controllers', ['corelogic.services'])
+    .controller('todosController', ['$scope', 'todoList', function ($scope, todoList) {
+        $scope.todos = todoList.getTodos();
         $scope.editedTodo = {text: '', done: false};
         $scope.addTodo = function () {
             if (!$scope.editedTodo.text) { return; }
-            $scope.todos.push($scope.editedTodo);
+            todoList.addTodo($scope.editedTodo);
             $scope.editedTodo = {text: '', done: false};
+        };
+    }])
+
+    .controller('todoController', ['$scope', 'todoList', function ($scope, todoList) {
+        $scope.accomplishTodo = function () {
+            todoList.accomplishTodo($scope.todo);
         };
     }]);
