@@ -1,20 +1,32 @@
 angular.module('corelogic.services', ['ngStorage'])
 
-.factory('todoList', ['todoStore', function (todoStore) {
-    var todos = todoStore.get();
-    return  {
-        getTodos: function () { return todos; },
-        addTodo: function (t) {
-            todos.push(t);
-            todoStore.persist(todos);
-        },
-        accomplishTodo: function (t) {
-            var index = todos.indexOf(t);
-            if (index != -1) {
-                todos[index].done = true;
+.provider('todoList', [function () {
+    var purge = false;
+    return {
+        purgeDone: function (flag) { purge = flag; },
+        $get: ['todoStore', function (todoStore) {
+            var todos;
+            if (!purge) {
+                todos = todoStore.get();
+            } else {
+                todos = todoStore.get().filter(function (t) { return !t.done; });
+                todoStore.persist(todos);
             }
-            todoStore.persist(todos);
-        }
+            return  {
+                getTodos: function () { return todos; },
+                addTodo: function (t) {
+                    todos.push(t);
+                    todoStore.persist(todos);
+                },
+                accomplishTodo: function (t) {
+                    var index = todos.indexOf(t);
+                    if (index != -1) {
+                        todos[index].done = true;
+                    }
+                    todoStore.persist(todos);
+                }
+            };
+        }]
     };
 }])
 
