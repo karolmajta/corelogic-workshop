@@ -3,10 +3,10 @@ angular.module('corelogic.app', [
   'corelogic.controllers'
 ])
 
-.config(['$localStorageProvider', 'COMPANY_NAME', 'todoListProvider',
-  function ($localStorageProvider, COMPANY_NAME, todoListProvider) {
+.config(['$localStorageProvider', 'COMPANY_NAME', 'PURGE_DONE', 'todoListProvider',
+  function ($localStorageProvider, COMPANY_NAME, PURGE_DONE, todoListProvider) {
 
     $localStorageProvider.setKeyPrefix(COMPANY_NAME + "-");
-    todoListProvider.purgeDone(true);
+    todoListProvider.purgeDone(PURGE_DONE);
 
 }]);

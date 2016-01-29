@@ -54,7 +54,10 @@ grunt.initConfig({
     },
     render: {
         config: {
-            options: {url: grunt.option('url'), companyName: grunt.option('company-name')},
+            options: {
+                companyName: grunt.option('company-name'),
+                purgeDone: grunt.option('purge-done') === true
+            },
             files: {
                 'build/js/config.js': ['src/config.ejs']
             }
