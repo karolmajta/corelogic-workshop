@@ -1,0 +1,11 @@
+<div ng-controller="todosController">
+    <ul>
+        <li ng-repeat="todo in todos"
+            class="todo"
+            ng-class="{done: todo.done, pending: !todo.done}">{{todo.text}}</li>
+    </ul>
+    <hr>
+    Add todo:
+    <input type="text" ng-model="editedTodo.text">
+    <button ng-click="addTodo()">Add!</button>
+</div>

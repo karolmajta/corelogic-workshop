@@ -1,0 +1,6 @@
+.todo.done {
+    background: lightgray;
+}
+.todo.pending {
+    background: lightgreen;
+}
