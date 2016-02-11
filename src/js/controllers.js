@@ -1,6 +1,9 @@
 angular.module('corelogic.controllers', ['corelogic.services'])
     .controller('todosController', ['$scope', 'todoList', function ($scope, todoList) {
-        $scope.todos = todoList.getTodos();
+        todoList.getTodos().then(function (todos) {
+          $scope.todos = todos;
+        });
+        
         $scope.editedTodo = {text: '', done: false};
         $scope.addTodo = function () {
             if (!$scope.editedTodo.text) { return; }

@@ -1,5 +1,5 @@
 <div ng-controller="todosController">
-    <ul>
+    <ul ng-if="todos">
         <li ng-repeat="todo in todos | orderBy:'done'"
             class="todo"
             ng-class="{done: todo.done, pending: !todo.done}">
@@ -7,6 +7,7 @@
                     ng-controller="todoController"></ng-include>
         </li>
     </ul>
+    <div ng-if="!todos">Loading...</div>
     <hr>
     Add todo:
     <input type="text" ng-model="editedTodo.text">

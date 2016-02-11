@@ -4,7 +4,7 @@ angular.module('corelogic.services', ['ngStorage'])
     var purge = false;
     return {
         purgeDone: function (flag) { purge = flag; },
-        $get: ['todoStore', function (todoStore) {
+        $get: ['$timeout', 'todoStore', function ($timeout, todoStore) {
             var todos;
             if (!purge) {
                 todos = todoStore.get();
@@ -13,7 +13,9 @@ angular.module('corelogic.services', ['ngStorage'])
                 todoStore.persist(todos);
             }
             return  {
-                getTodos: function () { return todos; },
+                getTodos: function () {
+                  return $timeout(function () { return todos; }, 1000);
+                },
                 addTodo: function (t) {
                     todos.push(t);
                     todoStore.persist(todos);
