@@ -2,9 +2,11 @@ angular.module('corelogic.services', ['ngStorage'])
 
 .provider('todoList', [function () {
     var purge = false;
+    var apiRoot = '';
     return {
         purgeDone: function (flag) { purge = flag; },
-        $get: ['$timeout', 'todoStore', function ($timeout, todoStore) {
+        setApiRoot: function (url) { apiRoot = url; },
+        $get: ['$http', 'todoStore', function ($http, todoStore) {
             var todos;
             if (!purge) {
                 todos = todoStore.get();
@@ -14,7 +16,9 @@ angular.module('corelogic.services', ['ngStorage'])
             }
             return  {
                 getTodos: function () {
-                  return $timeout(function () { return todos; }, 1000);
+                  return $http.get(apiRoot + '/todos/').then(function (r) {
+                    return r.data;
+                  });
                 },
                 addTodo: function (t) {
                     todos.push(t);
