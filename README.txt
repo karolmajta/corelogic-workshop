@@ -1,7 +1,8 @@
-It turns out some of our customers want the done todos to
-be displayed after reload, and some don't. Modify Gruntfile.js
-and config.ejs, so that you can use `--purge-done` flag during
-build time.
+Before we start doing actual HTTP let's fake the network latency
+by using `$timeout` service.
 
-Basing on the new constant from `corelogic.config` module modify
-the behavior of `todoList` in config function.
+- Modify `todoList` service's getTodos method so that it returns
+  a promise of list, that will resolve after a second.
+
+- Modify the controller, so that it shows "Loading..." label
+  unless the list of todos becomes available for display.
