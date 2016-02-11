@@ -45,6 +45,15 @@ angular.module('corelogic.services', ['ngStorage'])
     };
 }])
 
+.factory('networkErrorInterceptor', ['$q', function ($q) {
+    return {
+      responseError: function (err) {
+        if (err.status <= 0) { alert('network error...'); }
+        return $q.reject(err);
+      }
+    };
+}])
+
 .factory('todoStore', ['$localStorage', function ($localStorage) {
     return {
         get: function () { return $localStorage.todos || []; },
