@@ -10,6 +10,6 @@
     <div ng-if="!todos">Loading...</div>
     <hr>
     Add todo:
-    <input type="text" ng-model="editedTodo.text">
-    <button ng-click="addTodo()">Add!</button>
+    <input type="text" ng-model="editedTodo.text" ng-disabled="saving">
+    <button ng-click="addTodo()" ng-disabled="saving">Add!</button>
 </div>
