@@ -1,3 +1,4 @@
 {{todo.text}}
+<a href="#" ng-click="cancelRemove()" ng-if="deleteTimeout">[undo]</a>
 <button ng-if="!todo.done" ng-click="accomplishTodo()" ng-disabled="saving">Mark as done</button>
-<button ng-if="todo.done" ng-click="removeTodo()" ng-disabled="saving">Delete forever</button>
+<button ng-if="todo.done && !deleteTimeout" ng-click="removeTodo()" ng-disabled="saving">Delete forever</button>

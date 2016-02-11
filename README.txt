@@ -1,4 +1,4 @@
-Make sure that when the user clicks the "DELETE" button the request
-to the server is not sent immediately. Instead display an "undo" link,
-and when the user clicks it, do not delete the item. If the user does
-not click undo in 5 seconds delete the item from the server.
+Write and set an interceptor, that will display a "Cannot connect to server"
+alert when network connection to the server fails.
+
+You can find more info on interceptors [here](https://docs.angularjs.org/api/ng/service/$http).

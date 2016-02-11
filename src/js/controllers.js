@@ -18,8 +18,11 @@ angular.module('corelogic.controllers', ['corelogic.services'])
         });
     }])
 
-    .controller('todoController', ['$scope', 'todoList', function ($scope, todoList) {
+    .controller('todoController', ['$scope', '$timeout', 'todoList',
+      function ($scope, $timeout, todoList) {
+
         $scope.saving = false;
+        $scope.deleteTimeout = null;
 
         $scope.accomplishTodo = function () {
             $scope.saving = true;
@@ -28,8 +31,15 @@ angular.module('corelogic.controllers', ['corelogic.services'])
         };
 
         $scope.removeTodo = function () {
-            $scope.saving = true;
-            todoList.removeTodo($scope.todo)
-              .finally(function () { $scope.saving = false; });
+            $scope.deleteTimeout = $timeout(function () {
+              $scope.saving = true;
+              todoList.removeTodo($scope.todo)
+                .finally(function () { $scope.saving = false; });
+            }, 5000);
+        };
+
+        $scope.cancelRemove = function () {
+          $timeout.cancel($scope.deleteTimeout);
+          $scope.deleteTimeout = null;
         };
     }]);
