@@ -1,6 +1,9 @@
-Refactor `todoList` service, so that `accomplishTodo` method uses `$http.put`
-and persists the done todo on the server.
+Refactor `todoList` service, and add a `removeTodo` method that will
+remove given todo from the server
 
-Make sure that "mark as done" buttion is disabled during the save.
+Make sure to display "remove" button next to done todo items.
 
-Reuse the closure of `todos` in `todoList`.
+Make sure that ng-click on the button will call remove todo, and will
+remove todo from the server using `removeTodo` method.
+
+Make sure that during http call the button will be disabled.

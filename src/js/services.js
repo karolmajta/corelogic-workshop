@@ -6,7 +6,7 @@ angular.module('corelogic.services', ['ngStorage'])
     return {
         purgeDone: function (flag) { purge = flag; },
         setApiRoot: function (url) { apiRoot = url; },
-        $get: ['$http', 'todoStore', function ($http, todoStore) {
+        $get: ['$http', 'todoStore', function ($http) {
             var todos;
             return  {
                 getTodos: function () {
@@ -30,6 +30,15 @@ angular.module('corelogic.services', ['ngStorage'])
                         todos[idx] = r.data;
                         return todos;
                     });
+                },
+                removeTodo: function (t) {
+                  return $http.delete(apiRoot + '/todos/' + t.id).then(function (r) {
+                    var idx = _.findIndex(todos, function (todo) {
+                      return t.id == todo.id;
+                    });
+                    todos.splice(idx, 1);
+                    return todos;
+                  });
                 }
             };
         }]

@@ -1,2 +1,3 @@
 {{todo.text}}
 <button ng-if="!todo.done" ng-click="accomplishTodo()" ng-disabled="saving">Mark as done</button>
+<button ng-if="todo.done" ng-click="removeTodo()" ng-disabled="saving">Delete forever</button>

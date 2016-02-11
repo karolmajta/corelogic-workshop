@@ -26,4 +26,10 @@ angular.module('corelogic.controllers', ['corelogic.services'])
             todoList.accomplishTodo($scope.todo)
               .finally(function () { $scope.saving = false; });
         };
+
+        $scope.removeTodo = function () {
+            $scope.saving = true;
+            todoList.removeTodo($scope.todo)
+              .finally(function () { $scope.saving = false; });
+        };
     }]);
