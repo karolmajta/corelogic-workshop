@@ -8,5 +8,6 @@ angular.module('corelogic.app', [
 
     $localStorageProvider.setKeyPrefix(COMPANY_NAME + "-");
     todoListProvider.purgeDone(PURGE_DONE);
+    todoListProvider.setApiRoot('http://localhost:3000');
 
 }]);
