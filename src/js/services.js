@@ -1,4 +1,4 @@
-angular.module('corelogic.services', ['ngStorage'])
+angular.module('corelogic.services', ['ngStorage', 'restangular'])
 
 .provider('todoList', [function () {
     var purge = false;
@@ -6,33 +6,33 @@ angular.module('corelogic.services', ['ngStorage'])
     return {
         purgeDone: function (flag) { purge = flag; },
         setApiRoot: function (url) { apiRoot = url; },
-        $get: ['$http', 'todoStore', function ($http) {
+        $get: ['Restangular', function (Restangular) {
             var todos;
             return  {
                 getTodos: function () {
-                  return $http.get(apiRoot + '/todos/').then(function (r) {
-                    todos = r.data;
+                  return Restangular.all('todos').getList().then(function (r) {
+                    todos = r;
                     return todos;
                   });
                 },
                 addTodo: function (t) {
-                    return $http.post(apiRoot + '/todos/', t).then(function (r) {
-                      todos.push(r.data);
+                    return Restangular.all('todos').post(t).then(function (r) {
+                      todos.push(r);
                       return todos;
                     });
                 },
                 accomplishTodo: function (t) {
-                    var doneTodo = _.extend({}, t, {done: true});
-                    return $http.put(apiRoot + '/todos/' + t.id, doneTodo).then(function (r) {
+                    t.done = true;
+                    return t.put().then(function (r) {
                         var idx = _.findIndex(todos, function (t) {
-                          return t.id == r.data.id;
+                          return t.id == r.id;
                         });
-                        todos[idx] = r.data;
+                        todos[idx] = r;
                         return todos;
                     });
                 },
                 removeTodo: function (t) {
-                  return $http.delete(apiRoot + '/todos/' + t.id).then(function (r) {
+                  return Restangular.one('todos', t.id).remove().then(function (r) {
                     var idx = _.findIndex(todos, function (todo) {
                       return t.id == todo.id;
                     });

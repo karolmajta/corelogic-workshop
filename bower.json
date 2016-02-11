@@ -15,6 +15,7 @@
   "dependencies": {
     "angular": "~1.4.9",
     "underscore": "~1.8.3",
-    "ngstorage": "~0.3.10"
+    "ngstorage": "~0.3.10",
+    "restangular": "~1.5.1"
   }
 }
