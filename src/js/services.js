@@ -8,28 +8,28 @@ angular.module('corelogic.services', ['ngStorage'])
         setApiRoot: function (url) { apiRoot = url; },
         $get: ['$http', 'todoStore', function ($http, todoStore) {
             var todos;
-            if (!purge) {
-                todos = todoStore.get();
-            } else {
-                todos = todoStore.get().filter(function (t) { return !t.done; });
-                todoStore.persist(todos);
-            }
             return  {
                 getTodos: function () {
                   return $http.get(apiRoot + '/todos/').then(function (r) {
-                    return r.data;
+                    todos = r.data;
+                    return todos;
                   });
                 },
                 addTodo: function (t) {
-                    todos.push(t);
-                    todoStore.persist(todos);
+                    return $http.post(apiRoot + '/todos/', t).then(function (r) {
+                      todos.push(r.data);
+                      return todos;
+                    });
                 },
                 accomplishTodo: function (t) {
-                    var index = todos.indexOf(t);
-                    if (index != -1) {
-                        todos[index].done = true;
-                    }
-                    todoStore.persist(todos);
+                    var doneTodo = _.extend({}, t, {done: true});
+                    return $http.put(apiRoot + '/todos/' + t.id, doneTodo).then(function (r) {
+                        var idx = _.findIndex(todos, function (t) {
+                          return t.id == r.data.id;
+                        });
+                        todos[idx] = r.data;
+                        return todos;
+                    });
                 }
             };
         }]
